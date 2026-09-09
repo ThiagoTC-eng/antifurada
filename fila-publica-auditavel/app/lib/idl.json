@@ -1,0 +1,107 @@
+{
+  "version": "0.1.0",
+  "name": "fila_publica",
+  "instructions": [
+    {
+      "name": "createQueue",
+      "accounts": [
+        { "name": "admin", "isMut": true, "isSigner": true },
+        { "name": "queue", "isMut": true, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "queueId", "type": "string" }]
+    },
+    {
+      "name": "joinQueue",
+      "accounts": [
+        { "name": "cidadao", "isMut": true, "isSigner": true },
+        { "name": "queue", "isMut": true, "isSigner": false },
+        { "name": "ticket", "isMut": true, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [{ "name": "hashCpf", "type": { "array": ["u8", 32] } }]
+    },
+    {
+      "name": "callNext",
+      "accounts": [
+        { "name": "admin", "isMut": false, "isSigner": true },
+        { "name": "queue", "isMut": false, "isSigner": false },
+        { "name": "ticket", "isMut": true, "isSigner": false }
+      ],
+      "args": [{ "name": "numeroSenha", "type": "u64" }]
+    },
+    {
+      "name": "marcarAtendido",
+      "accounts": [
+        { "name": "admin", "isMut": false, "isSigner": true },
+        { "name": "queue", "isMut": false, "isSigner": false },
+        { "name": "ticket", "isMut": true, "isSigner": false }
+      ],
+      "args": [{ "name": "numeroSenha", "type": "u64" }]
+    },
+    {
+      "name": "fecharFila",
+      "accounts": [
+        { "name": "admin", "isMut": false, "isSigner": true },
+        { "name": "queue", "isMut": true, "isSigner": false }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Queue",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "queueId", "type": "string" },
+          { "name": "admin", "type": "publicKey" },
+          { "name": "totalRegistrados", "type": "u64" },
+          { "name": "aberta", "type": "bool" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "Ticket",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "queue", "type": "publicKey" },
+          { "name": "cidadao", "type": "publicKey" },
+          { "name": "hashCpf", "type": { "array": ["u8", 32] } },
+          { "name": "numeroSenha", "type": "u64" },
+          { "name": "timestamp", "type": "i64" },
+          { "name": "status", "type": { "defined": "StatusTicket" } },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "StatusTicket",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          { "name": "Aguardando" },
+          { "name": "Chamado" },
+          { "name": "Atendido" }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    { "code": 6000, "name": "FilaFechada", "msg": "Fila está fechada para novas entradas" },
+    { "code": 6001, "name": "Overflow", "msg": "Overflow no contador de registrados" },
+    { "code": 6002, "name": "NaoAutorizado", "msg": "Apenas o admin da fila pode executar esta ação" },
+    { "code": 6003, "name": "SenhaIncorreta", "msg": "Número de senha informado não corresponde ao ticket" },
+    { "code": 6004, "name": "TicketJaProcessado", "msg": "Ticket já foi processado (não está mais aguardando)" },
+    { "code": 6005, "name": "TicketNaoChamado", "msg": "Ticket ainda não foi chamado" },
+    { "code": 6006, "name": "QueueIdMuitoLongo", "msg": "queue_id muito longo (máx 50 caracteres)" },
+    { "code": 6007, "name": "TicketDeOutraFila", "msg": "Este ticket pertence a outra fila" }
+  ],
+  "metadata": {
+    "address": "FiLA1PubAud1t0r1a1QueueProgram11111111111"
+  }
+}

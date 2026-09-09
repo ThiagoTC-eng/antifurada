@@ -1,0 +1,19 @@
+[package]
+name = "fila_publica"
+version = "0.1.0"
+description = "Fila Pública Auditável On-Chain"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "fila_publica"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ip = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.30.1"

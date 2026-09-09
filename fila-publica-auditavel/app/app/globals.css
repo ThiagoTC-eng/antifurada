@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background-color: #f6f8fb;
+}
+
+.wallet-adapter-button {
+  background-color: #0b78dd !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.875rem !important;
+  height: 40px !important;
+}

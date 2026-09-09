@@ -1,0 +1,23 @@
+{
+  "name": "fila-publica-anchor",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "anchor test --skip-local-validator",
+    "build": "anchor build",
+    "deploy:devnet": "anchor deploy --provider.cluster devnet"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.30.1",
+    "@solana/web3.js": "^1.95.0"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.5",
+    "@types/chai": "^4.3.16",
+    "@types/mocha": "^10.0.6",
+    "chai": "^4.4.1",
+    "js-sha256": "^0.11.0",
+    "mocha": "^10.4.0",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^5.4.5"
+  }
+}

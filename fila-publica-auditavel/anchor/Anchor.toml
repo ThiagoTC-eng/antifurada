@@ -1,0 +1,27 @@
+[toolchain]
+
+[features]
+seeds = false
+skip-lint = false
+
+[programs.devnet]
+fila_publica = "FiLA1PubAud1t0r1a1QueueProgram11111111111"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+# Já configurado para Devnet, como pedido. Para testar 100% local com
+# validador local, troque para "http://127.0.0.1:8899" e "localnet"
+# na seção acima.
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[test]
+startup_wait = 10000
+
+[test.validator]
+url = "https://api.devnet.solana.com"
